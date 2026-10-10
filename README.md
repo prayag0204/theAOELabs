@@ -38,6 +38,17 @@ npm start
 
 The frontend development server runs at <http://localhost:3000> and proxies `/api` requests to the backend at port 8080.
 
+## Contact Form Email
+
+The contact form sends enquiries through SMTP. Copy `.env.example` to `.env`, then set the SMTP username, provider-generated password, sender address, and inbox. Docker Compose reads `.env` automatically:
+
+```powershell
+Copy-Item .env.example .env
+docker compose up --build
+```
+
+For a backend started directly with Maven, export the corresponding `SPRING_MAIL_*`, `CONTACT_INBOX`, and `CONTACT_FROM` variables in that terminal first. Spring Boot does not load the root `.env` file when run directly. Never commit `.env` or put SMTP credentials in source control. See [docs/deployment.md](docs/deployment.md) for production configuration notes.
+
 ## Verify Builds
 
 ```powershell
@@ -64,6 +75,8 @@ docker compose up --build
 Open <http://localhost:8081>. The frontend container serves the static site and proxies `/api` traffic to the backend container. The backend is not published directly to the host.
 
 The container setup is a portable starting point, not a production deployment by itself. Production hosting still needs TLS, secrets management, environment-specific configuration, monitoring, and a hosting-specific deployment process. See [docs/deployment.md](docs/deployment.md).
+
+For the Render API and Vercel frontend deployment setup, see [docs/deployment.md](docs/deployment.md). The current system structure and component versions are summarized in [docs/architecture-overview.md](docs/architecture-overview.md).
 
 ## Publish to GitHub
 
