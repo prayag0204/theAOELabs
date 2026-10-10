@@ -36,6 +36,13 @@ module.exports = (env, argv = {}) => {
             },
           },
         },
+        {
+          test: /\.png$/i,
+          type: "asset/resource",
+          generator: {
+            filename: "images/[name][ext]",
+          },
+        },
       ],
     },
 

@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { fetchHealth } from "./api/healthApi";
 import ContactForm from "./features/contact/ContactForm";
+import brandLogo from "../public/images/theaoe-logo-lockup.png";
 
 const capabilities = [
   {
@@ -65,7 +66,7 @@ export default function App() {
         <a className="brand" href="#home" aria-label="theAOE Labs home">
           <img
             className="brand-logo"
-            src="/images/theaoe-logo-lockup.png"
+            src={brandLogo}
             alt="theAOE Labs — Transform. Automate. Scale Beyond Limits."
           />
         </a>
