@@ -1,0 +1,14 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "${WEB_PORT:-8081}:80"
+    restart: unless-stopped

@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: theaoe-labs-website
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO
