@@ -4,9 +4,11 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const apiBaseUrl = (process.env.REACT_APP_API_BASE_URL || "").replace(/\/+$/, "");
 
-module.exports = {
-  mode: "development",
+module.exports = (env, argv = {}) => {
+  const mode = argv.mode || "development";
 
+  return {
+  mode,
   entry: "./src/index.jsx",
 
   output: {
@@ -21,42 +23,43 @@ module.exports = {
   },
 
 
-module: {
-  rules: [
-    {
-      test: /\.(js|jsx)$/,
-      exclude: /node_modules/,
-      type: "javascript/auto",
-      use: {
-        loader: "babel-loader",
-      },
+    module: {
+      rules: [
+        {
+          test: /\.(js|jsx)$/,
+          exclude: /node_modules/,
+          type: "javascript/auto",
+          use: {
+            loader: "babel-loader",
+            options: {
+              envName: mode,
+            },
+          },
+        },
+      ],
     },
-  ],
-},
 
+    plugins: [
+      new webpack.DefinePlugin({
+        "process.env.REACT_APP_API_BASE_URL": JSON.stringify(apiBaseUrl),
+      }),
+      new HtmlWebpackPlugin({
+        template: "./public/index.html",
+      }),
+    ],
 
-  plugins: [
-    new webpack.DefinePlugin({
-      "process.env.REACT_APP_API_BASE_URL": JSON.stringify(apiBaseUrl),
-    }),
-    new HtmlWebpackPlugin({
-      template: "./public/index.html",
-    }),
-  ],
-
-
-devServer: {
-  host: "localhost",
-  port: 3000,
-  open: true,
-  hot: true,
-  historyApiFallback: true,
-
-  proxy: [
-    {
-      context: ["/api"],
-      target: "http://localhost:8080",
+    devServer: {
+      host: "localhost",
+      port: 3000,
+      open: true,
+      hot: true,
+      historyApiFallback: true,
+      proxy: [
+        {
+          context: ["/api"],
+          target: "http://localhost:8080",
+        },
+      ],
     },
-  ],
-},
+  };
 };
