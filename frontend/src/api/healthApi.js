@@ -1,6 +1,8 @@
 
+import { apiUrl } from "./apiUrl";
+
 export async function fetchHealth() {
-  const response = await fetch("/api/health", {
+  const response = await fetch(apiUrl("/api/health"), {
     headers: {
       Accept: "application/json",
     },

@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { fetchHealth } from "./api/healthApi";
+import ContactForm from "./features/contact/ContactForm";
 
 const capabilities = [
   {
@@ -346,12 +347,7 @@ export default function App() {
           for your business.
         </p>
 
-        <a
-          className="button-primary"
-          href="mailto:hello@theaoelabs.com"
-        >
-          Tell us about your project <span aria-hidden="true">↗</span>
-        </a>
+        <ContactForm />
       </section>
 
       {/* Footer */}

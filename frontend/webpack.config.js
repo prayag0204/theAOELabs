@@ -1,6 +1,8 @@
 
 const path = require("node:path");
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const apiBaseUrl = (process.env.REACT_APP_API_BASE_URL || "").replace(/\/+$/, "");
 
 module.exports = {
   mode: "development",
@@ -34,6 +36,9 @@ module: {
 
 
   plugins: [
+    new webpack.DefinePlugin({
+      "process.env.REACT_APP_API_BASE_URL": JSON.stringify(apiBaseUrl),
+    }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
     }),
